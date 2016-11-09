@@ -1,0 +1,99 @@
+@charset "UTF-8";
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+  margin: 0;
+  padding: 0; }
+
+fieldset, img {
+  border: none; }
+
+img {
+  display: block; }
+
+address, caption, cite, code, dfn, th, var {
+  font-style: normal;
+  font-weight: normal; }
+
+ul, ol {
+  list-style: none; }
+
+body {
+  color: #333;
+  font: 12px/1.5 tahoma, arial, \5b8b\4f53, sans-serif;
+  background: #fff;
+  overflow-x: hidden; }
+
+a {
+  color: #666;
+  text-decoration: none; }
+
+a:visited {
+  color: #666; }
+
+/*a:hover, a:active, a:focus { color:#ff8400; text-decoration:underline; }*/
+.content {
+  width: 1200px;
+  margin: 0 auto; }
+
+.content:after, .clear-both:after {
+  content: '.';
+  height: 0;
+  width: 0;
+  display: block;
+  clear: both;
+  visibility: hidden;
+  overflow: hidden; }
+
+/* 购物车样式 */
+.myShopCar-con > a {
+  display: block; }
+
+.myShopCar-con dl {
+  margin: 0 15px;
+  width: 330px;
+  overflow: hidden;
+  border-top: 1px dashed #ddd;
+  background-color: #fff; }
+
+.myShopCar-con dt {
+  float: left;
+  width: 80px;
+  text-align: center; }
+
+.myShopCar-con dt img {
+  width: 60px;
+  height: 98px;
+  margin-top: 5px; }
+
+.myShopCar-con dd {
+  padding: 20px 40px 20px 0;
+  position: relative; }
+
+.myShopCar-con span {
+  display: block;
+  line-height: 20px;
+  color: #85726c;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap; }
+
+.myShopCar-con span.tit {
+  color: #5b473d; }
+
+.myShopCar-con span.price {
+  padding-top: 10px; }
+
+.myShopCar-con span.price strong {
+  color: #c53f4c;
+  font-weight: bold;
+  font-family: arial; }
+
+.myShopCar-con span.price em {
+  font-style: normal; }
+
+.myShopCar-con a.remove {
+  position: absolute;
+  top: 7px;
+  right: 11px;
+  width: 16px;
+  height: 16px;
+  background: url(../img/bg_header42.png) no-repeat 0 -64px; }
