@@ -121,7 +121,6 @@
 		});
 		pics.hover(
 			function () {
-				console.log(timer);
 				clearInterval(timer);
 				$(this).find('img').stop(true).animate({ width: $(this).width() * 1.1, height: $(this).height() * 1.1, left: -$(this).width() * 0.05, top: -$(this).height() * 0.05 }, 1500, 'swing')
 			},
