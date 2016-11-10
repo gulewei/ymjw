@@ -49,14 +49,14 @@
 	var Banner = __webpack_require__(4);
 	var Recommends = __webpack_require__(5);
 	var Guess = __webpack_require__(6);
-	var Popular = __webpack_require__(7);
-	var Interest = __webpack_require__(8);
-	var Special = __webpack_require__(9);
-	var BrandWall = __webpack_require__(10);
-	var Taste = __webpack_require__(11);
-	var Channel = __webpack_require__(12);
-	var Footer = __webpack_require__(13);
-	__webpack_require__(14);
+	var Popular = __webpack_require__(8);
+	var Interest = __webpack_require__(9);
+	var Special = __webpack_require__(10);
+	var BrandWall = __webpack_require__(11);
+	var Taste = __webpack_require__(12);
+	var Channel = __webpack_require__(13);
+	var Footer = __webpack_require__(14);
+	__webpack_require__(7);
 
 	$(function () {
 	    $('.lazy-load').lazyload({
@@ -199,225 +199,35 @@
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = null;
+	var $ = jQuery = __webpack_require__(1);
+	__webpack_require__(7);
+	module.exports = function () {
+	    var lis = $('.guess-main li');
+
+	    $('.guess-left a').on('click', function () {
+	        // 获取标识类名
+	        var id = $(this).prop('className').substring(6);
+	        // console.log(id.substring(6)); 
+	        var contents = ['title', 'enName', 'area', 'categroy', 'grade', 'price'];
+
+	        $.getJSON('json/guess.json', function (data) {
+	            lis.each(function (li) {
+	                var index = $(this).index();
+	                var item = data[id][index];
+	                $('.gm-image', lis[li]).removeAttr('src').attr('data-original', item.image);
+	                $.map(contents, function (con) {
+	                    $('.gm-' + con, li).text(item[con]);
+	                })
+	            })
+	            $('.lazy-load', lis).lazyload();
+	        })
+	    })
+	}
 
 /***/ },
 /* 7 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = function () {
-		var $ = __webpack_require__(1);
-
-		//------------------ 刚被好评过的------------------------------------
-		var oUlSlide2 = $("#popular .pop-left .sec-con ul");
-		var aBnSlide2 = $("#popular .pop-left .sec-con .flash-btn a");
-		var timer2 = null;
-		var index2 = 0;
-		var speed2 = 1;
-		// 运动
-		aBnSlide2.on('mouseenter', function () {
-			aBnSlide2.removeClass()
-			$(this).addClass("active")
-			oUlSlide2.stop(true).animate({ 'left': -$(this).index() * 600 }, 1000)
-			index2 = $(this).index()
-		})
-		// 运动控制
-		oUlSlide2.on('mouseenter', function () {
-			clearInterval(timer2);
-		})
-		oUlSlide2.on('mouseleave', function () {
-			autoPlay2();
-		})
-		// 自动运动
-		autoPlay2();
-		function autoPlay2() {
-			timer2 = setInterval(function () {
-				if (index2 > 2 || index2 < 0) {
-					speed2 *= -1;
-					index2 += speed2 * 2;
-				}
-				aBnSlide2.eq(index2).mouseenter();
-				index2 += speed2;
-			}, 3000);
-		}
-	}
-
-
-/***/ },
-/* 8 */
-/***/ function(module, exports) {
-
-	module.exports = null;
-
-/***/ },
-/* 9 */
-/***/ function(module, exports) {
-
-	module.exports = null;
-
-/***/ },
-/* 10 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = function () {
-		var $ = __webpack_require__(1);
-		//-------------------- 品酒汇：手风琴效果----------------------------------------
-		var aBrandLis = $("#brandWall .brand-ul1 li");
-		var aBrandUl = $("#brandWall .brand-ul1");
-		var timer3 = null;
-		// 初始
-		var index3 = 0;
-		aBrandLis.css('left', function (index, value) {
-			if (index == index3) {
-				return 0;
-			} else {
-				return 450 + 150 * (index - 1);
-			}
-		})
-		// 运动
-		aBrandLis.on('mouseenter', function () {
-			var _i = $(this).index();
-			index3 = _i;
-			aBrandLis.each(function () {
-				var index = $(this).index();
-				var target = index <= _i ? index * 150 : (index - 1) * 150 + 450;
-				aBrandLis.eq(index).stop(true).animate({ "left": target }, 500);
-			})
-		})
-		// 自动运动
-		index3++;
-		autoPlay3()
-		function autoPlay3() {
-			timer3 = setInterval(function () {
-				var index = index3 >= aBrandLis.length ? 0 : index3
-				aBrandLis.eq(index).mouseenter();
-				aBrandUl.mouseleave();
-				index3++;
-			}, 2000)
-		}
-		// 运动控制
-		aBrandUl.on('mouseenter', function () {
-			clearInterval(timer3)
-		})
-		aBrandUl.on('mouseleave', function () {
-			autoPlay3();
-		})
-
-		//-------------------- 品酒汇：图片移动----------------------------------------
-		var aBrandImgs = $("#brandWall .brand-ul2 a");
-		aBrandImgs.on('mouseenter', function () {
-			$(this).find('img').stop(true).animate({ 'left': -100 }, 500);
-		})
-		aBrandImgs.on('mouseleave', function () {
-			$(this).find('img').stop(true).animate({ 'left': 0 }, 500);
-		})
-	}
-
-
-/***/ },
-/* 11 */
-/***/ function(module, exports) {
-
-	module.exports = null;
-
-/***/ },
-/* 12 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = function () {
-		var $ = __webpack_require__(1);
-
-		//-------------------- channels 轮播 ------------------------------------------
-		var aChalSliders = $(".channels .chal-slide");
-		console.log(aChalSliders.length);
-		aChalSliders.each(function () {
-			var index = 0;
-			var timer = null;
-			var oli = $(this).find('li');
-			var oul = $(this).find('ul');
-			var aflash = $(this).find(".flash-btn a");
-			// ul宽度
-			var wLi = $(this).width();
-			oul.css('width', wLi * oli.length);
-			// 运动
-			aflash.on('mouseenter', function () {
-				oul.stop(true).animate({ left: -wLi * $(this).index() }, 800);
-				aflash.removeClass();
-				$(this).addClass('active');
-				index = $(this).index();
-			});
-			// 自动运动
-			index++;
-			autoPlay();
-			var _this = $(this);
-			function autoPlay() {
-				timer = setInterval(function () {
-					var _i = index >= oli.length ? 0 : index;
-					aflash.eq(_i).mouseenter();
-					_this.mouseleave();
-					index++;
-				}, 2000)
-			}
-			//  运动控制
-			$(this).on('mouseenter', function () {
-				clearInterval(timer);
-			});
-			$(this).on('mouseleave', function () {
-				autoPlay();
-			})
-		});
-
-
-		//-------------------- channels 排行榜 ----------------------------------------
-		var chalRank = $(".channels .chal-rank");
-		chalRank.each(function () {
-			var rankList = $(".rank-item", $(this));
-			var start = $(this).height() > 600 ? 1 : 0;
-			rankList.slice(start).on("mouseenter", function () {
-				rankList.slice(start).removeClass('active');
-				$(this).addClass('active');
-			});
-		});
-
-		//-------------------- channels 边框 ----------------------------------------
-		var selcCon = $(".selc-list .selc-con");
-		selcCon.each(function () {
-			var selcItem = $("dl", $(this));
-			selcItem.hover(
-				function () {
-					$(this).css('borderColor', '#ddd')
-				},
-				function () {
-					$(this).css('borderColor', "#fff")
-				}
-			)
-		})
-	}
-
-
-/***/ },
-/* 13 */
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = function () {
-		var $ = __webpack_require__(1);
-
-		var status = false;
-		$(".friend-links .tri-up").on('click', function () {
-			if (!status) {
-				$(".friend-links").addClass('friend-links-show');
-			} else {
-				$(".friend-links").removeClass('friend-links-show');
-			}
-			status = !status;
-		})
-	}
-
-
-/***/ },
-/* 14 */
 /***/ function(module, exports) {
 
 	/*!
@@ -662,6 +472,219 @@
 	    });
 
 	})(jQuery, window, document);
+
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function () {
+		var $ = __webpack_require__(1);
+
+		//------------------ 刚被好评过的------------------------------------
+		var oUlSlide2 = $("#popular .pop-left .sec-con ul");
+		var aBnSlide2 = $("#popular .pop-left .sec-con .flash-btn a");
+		var timer2 = null;
+		var index2 = 0;
+		var speed2 = 1;
+		// 运动
+		aBnSlide2.on('mouseenter', function () {
+			aBnSlide2.removeClass()
+			$(this).addClass("active")
+			oUlSlide2.stop(true).animate({ 'left': -$(this).index() * 600 }, 1000)
+			index2 = $(this).index()
+		})
+		// 运动控制
+		oUlSlide2.on('mouseenter', function () {
+			clearInterval(timer2);
+		})
+		oUlSlide2.on('mouseleave', function () {
+			autoPlay2();
+		})
+		// 自动运动
+		autoPlay2();
+		function autoPlay2() {
+			timer2 = setInterval(function () {
+				if (index2 > 2 || index2 < 0) {
+					speed2 *= -1;
+					index2 += speed2 * 2;
+				}
+				aBnSlide2.eq(index2).mouseenter();
+				index2 += speed2;
+			}, 3000);
+		}
+	}
+
+
+/***/ },
+/* 9 */
+/***/ function(module, exports) {
+
+	module.exports = null;
+
+/***/ },
+/* 10 */
+/***/ function(module, exports) {
+
+	module.exports = null;
+
+/***/ },
+/* 11 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function () {
+		var $ = __webpack_require__(1);
+		//-------------------- 品酒汇：手风琴效果----------------------------------------
+		var aBrandLis = $("#brandWall .brand-ul1 li");
+		var aBrandUl = $("#brandWall .brand-ul1");
+		var timer3 = null;
+		// 初始
+		var index3 = 0;
+		aBrandLis.css('left', function (index, value) {
+			if (index == index3) {
+				return 0;
+			} else {
+				return 450 + 150 * (index - 1);
+			}
+		})
+		// 运动
+		aBrandLis.on('mouseenter', function () {
+			var _i = $(this).index();
+			index3 = _i;
+			aBrandLis.each(function () {
+				var index = $(this).index();
+				var target = index <= _i ? index * 150 : (index - 1) * 150 + 450;
+				aBrandLis.eq(index).stop(true).animate({ "left": target }, 500);
+			})
+		})
+		// 自动运动
+		index3++;
+		autoPlay3()
+		function autoPlay3() {
+			timer3 = setInterval(function () {
+				var index = index3 >= aBrandLis.length ? 0 : index3
+				aBrandLis.eq(index).mouseenter();
+				aBrandUl.mouseleave();
+				index3++;
+			}, 2000)
+		}
+		// 运动控制
+		aBrandUl.on('mouseenter', function () {
+			clearInterval(timer3)
+		})
+		aBrandUl.on('mouseleave', function () {
+			autoPlay3();
+		})
+
+		//-------------------- 品酒汇：图片移动----------------------------------------
+		var aBrandImgs = $("#brandWall .brand-ul2 a");
+		aBrandImgs.on('mouseenter', function () {
+			$(this).find('img').stop(true).animate({ 'left': -100 }, 500);
+		})
+		aBrandImgs.on('mouseleave', function () {
+			$(this).find('img').stop(true).animate({ 'left': 0 }, 500);
+		})
+	}
+
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	module.exports = null;
+
+/***/ },
+/* 13 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function () {
+		var $ = __webpack_require__(1);
+
+		//-------------------- channels 轮播 ------------------------------------------
+		var aChalSliders = $(".channels .chal-slide");
+		console.log(aChalSliders.length);
+		aChalSliders.each(function () {
+			var index = 0;
+			var timer = null;
+			var oli = $(this).find('li');
+			var oul = $(this).find('ul');
+			var aflash = $(this).find(".flash-btn a");
+			// ul宽度
+			var wLi = $(this).width();
+			oul.css('width', wLi * oli.length);
+			// 运动
+			aflash.on('mouseenter', function () {
+				oul.stop(true).animate({ left: -wLi * $(this).index() }, 800);
+				aflash.removeClass();
+				$(this).addClass('active');
+				index = $(this).index();
+			});
+			// 自动运动
+			index++;
+			autoPlay();
+			var _this = $(this);
+			function autoPlay() {
+				timer = setInterval(function () {
+					var _i = index >= oli.length ? 0 : index;
+					aflash.eq(_i).mouseenter();
+					_this.mouseleave();
+					index++;
+				}, 2000)
+			}
+			//  运动控制
+			$(this).on('mouseenter', function () {
+				clearInterval(timer);
+			});
+			$(this).on('mouseleave', function () {
+				autoPlay();
+			})
+		});
+
+
+		//-------------------- channels 排行榜 ----------------------------------------
+		var chalRank = $(".channels .chal-rank");
+		chalRank.each(function () {
+			var rankList = $(".rank-item", $(this));
+			var start = $(this).height() > 600 ? 1 : 0;
+			rankList.slice(start).on("mouseenter", function () {
+				rankList.slice(start).removeClass('active');
+				$(this).addClass('active');
+			});
+		});
+
+		//-------------------- channels 边框 ----------------------------------------
+		var selcCon = $(".selc-list .selc-con");
+		selcCon.each(function () {
+			var selcItem = $("dl", $(this));
+			selcItem.hover(
+				function () {
+					$(this).css('borderColor', '#ddd')
+				},
+				function () {
+					$(this).css('borderColor', "#fff")
+				}
+			)
+		})
+	}
+
+
+/***/ },
+/* 14 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = function () {
+		var $ = __webpack_require__(1);
+
+		var status = false;
+		$(".friend-links .tri-up").on('click', function () {
+			if (!status) {
+				$(".friend-links").addClass('friend-links-show');
+			} else {
+				$(".friend-links").removeClass('friend-links-show');
+			}
+			status = !status;
+		})
+	}
 
 
 /***/ }

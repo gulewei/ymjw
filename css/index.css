@@ -821,6 +821,27 @@ ul.rec-left-links {
 .guess-left li a:hover {
   text-decoration: underline; }
 
+.guess-left li a.guess-pp {
+  background-position: 0px -70px; }
+
+.guess-left li a.guess-cj {
+  background-position: 0px -117px; }
+
+.guess-left li a.guess-fs {
+  background-position: 0px -165px; }
+
+.guess-left li a.guess-sw {
+  background-position: -209px -117px; }
+
+.guess-left li a.guess-bg {
+  background-position: -210px -165px; }
+
+.guess-left li a.guess-ym {
+  background-position: -210px -23px; }
+
+.guess-left li a.guess-yz {
+  background-position: -210px -70px; }
+
 .guess-main li {
   position: relative;
   float: left;
