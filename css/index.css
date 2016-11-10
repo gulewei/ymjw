@@ -290,6 +290,16 @@ a:visited {
   text-align: center;
   padding: 8px 0; }
 
+#nav-bar li:last-child a {
+  background-image: none; }
+
+#nav-bar li:hover, #nav-bar li.home {
+  background-color: #bc0001;
+  margin-left: -2px;
+  padding-left: 2px; }
+  #nav-bar li:hover a, #nav-bar li.home a {
+    background-image: none; }
+
 #nav-bar li a {
   color: #fff;
   padding: 0 20px;
@@ -297,12 +307,6 @@ a:visited {
   display: inline-block;
   font-size: 14px;
   background: url(../img/header/img/bg_header4.png) no-repeat right -166px; }
-
-#nav-bar li.home {
-  background-color: #bc0001;
-  padding-left: 2px;
-  margin-left: 2px;
-  background-image: none; }
 
 #nav-bar li.new {
   position: relative; }
@@ -420,7 +424,7 @@ a:visited {
 #groups li {
   padding: 4px 0 10px;
   border-top: dotted 1px #81665c; }
-  #groups li ::first-child {
+  #groups li:first-child {
     border-top: 0; }
   #groups li h5 {
     float: left;
