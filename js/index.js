@@ -645,7 +645,8 @@
 		var chalRank = $(".channels .chal-rank");
 		chalRank.each(function () {
 			var rankList = $(".rank-item", $(this));
-			var start = $(this).height() > 600 ? 1 : 0;
+			var start = $(this).height() > 605 ? 2 : 0;
+			console.log('statr: ', $(this).height());
 			rankList.slice(start).on("mouseenter", function () {
 				rankList.slice(start).removeClass('active');
 				$(this).addClass('active');
